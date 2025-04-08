@@ -1,0 +1,21 @@
+relationship AutoDetected_50f8b88d-5a77-4b05-9f81-53fbce1ae69d
+	fromColumn: Sales.RegionID
+	toColumn: Region.RegionID
+
+relationship AutoDetected_b062600d-37c6-431c-a73d-508303540320
+	fromColumn: Sales.ProductID
+	toColumn: Product.ProductID
+
+relationship AutoDetected_3f46e4a8-ff42-4140-9bb1-7fcbdd1fb7d9
+	fromColumn: Sales.CustomerID
+	toColumn: Customer.CustomerID
+
+relationship f062bf40-e843-65f6-17da-cfe2bff4dffe
+	fromColumn: Sales.SalesRepID
+	toColumn: SalesRep.SalesRepID
+
+relationship 52ec0742-753a-4e6d-8b34-dde0e76aa2b7
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sales.DateKey
+	toColumn: LocalDateTable_18ec4583-0cdc-4dc4-88bd-db5c0bcbbbb2.Date
+
