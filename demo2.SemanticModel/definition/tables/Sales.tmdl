@@ -1,0 +1,96 @@
+table Sales
+	lineageTag: 20fcbcf6-8e37-45fa-87b4-b69bab17e510
+
+	column OrderID
+		dataType: int64
+		formatString: 0
+		lineageTag: 3132a8b9-0560-4009-9b93-819ab8e60abe
+		summarizeBy: count
+		sourceColumn: OrderID
+
+		annotation SummarizationSetBy = Automatic
+
+	column DateKey
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: c8e93481-e9ab-448a-8fa9-3c5ee1c1afaa
+		summarizeBy: none
+		sourceColumn: DateKey
+
+		variation Variation
+			isDefault
+			relationship: 52ec0742-753a-4e6d-8b34-dde0e76aa2b7
+			defaultHierarchy: LocalDateTable_18ec4583-0cdc-4dc4-88bd-db5c0bcbbbb2.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column CustomerID
+		dataType: int64
+		formatString: 0
+		lineageTag: ebe256af-8f62-40bc-ae25-07e0c55c5632
+		summarizeBy: none
+		sourceColumn: CustomerID
+
+		annotation SummarizationSetBy = Automatic
+
+	column ProductID
+		dataType: int64
+		formatString: 0
+		lineageTag: 8ab276ea-290c-4295-a24e-b0afdce9c6bf
+		summarizeBy: none
+		sourceColumn: ProductID
+
+		annotation SummarizationSetBy = Automatic
+
+	column RegionID
+		dataType: int64
+		formatString: 0
+		lineageTag: 6a2b3715-5411-449c-8630-7a3b4fb6cdd0
+		summarizeBy: none
+		sourceColumn: RegionID
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesRepID
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ab775dc-2b44-4369-8be3-dd62751e6a10
+		summarizeBy: none
+		sourceColumn: SalesRepID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quantity
+		dataType: int64
+		formatString: 0
+		lineageTag: 4e379c91-9d43-4198-b8fe-fcfce9c8f0e3
+		summarizeBy: sum
+		sourceColumn: Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+	column SalesAmount
+		dataType: int64
+		formatString: 0
+		lineageTag: 94a2e1e3-ceca-4edd-9ca1-c46c6a12c798
+		summarizeBy: sum
+		sourceColumn: SalesAmount
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Sales = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\AdithyaKasturi\Downloads\OrderDetails_Data\OrderDetails_Data\Sales.csv"),[Delimiter=",", Columns=8, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"OrderID", Int64.Type}, {"DateKey", type date}, {"CustomerID", Int64.Type}, {"ProductID", Int64.Type}, {"RegionID", Int64.Type}, {"SalesRepID", Int64.Type}, {"Quantity", Int64.Type}, {"SalesAmount", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
